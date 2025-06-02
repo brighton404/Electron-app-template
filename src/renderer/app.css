@@ -1,0 +1,59 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+main {
+    display: flex;
+}
+#root {
+    display: inline;
+    --background: #1e1e1e;
+    --border:#2b2b2b;
+    --text: white;
+    --text-dark: black;
+    --text-alt: #2b2b2b;
+}
+main > .page {
+    flex: 1 0 0;
+    align-self: stretch;
+    padding: 1em;
+    color: white;
+    background: var(--background);
+}
+header {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: fit-content;
+    width: fit-content;
+    background: var(--border);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 0;
+    gap: 0;
+}
+aside#app-aside {
+    border-right:2px solid var(--border);
+}
+.win-Buttons {
+    button {
+        padding: 0px;
+        margin: 0px;
+        width: 40px;
+        height: 34px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #00000044;
+    }
+    button.critical:hover {
+        background-color: #ff0101a4;
+        svg {
+            stroke: white;
+        }
+    }
+}
+h1 { font-size: 32px; margin: 0;}
