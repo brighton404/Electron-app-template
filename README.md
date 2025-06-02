@@ -16,3 +16,9 @@ build and start app from dist folder
 ```
 npm run start
 ```
+
+if you ran into better-sqllite3 errors try
+`Rebuild for Electron`
+```
+npx electron-rebuild
+```
