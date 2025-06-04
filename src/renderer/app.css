@@ -7,17 +7,30 @@ main {
 #root {
     display: inline;
     --background: #1e1e1e;
+    --bg-c: #292929;
     --border:#2b2b2b;
     --text: white;
     --text-dark: black;
     --text-alt: #2b2b2b;
+    --input: #535353;;
 }
+h1 { font-size: 32px; margin: 0;}
 main > .page {
     flex: 1 0 0;
     align-self: stretch;
-    padding: 1em;
     color: white;
     background: var(--background);
+}
+.page {
+    display: flex;
+}
+.page.product {
+    .List {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 0;
+        padding:10px 20px ;
+    }
 }
 header {
     position: absolute;
@@ -56,4 +69,88 @@ aside#app-aside {
         }
     }
 }
-h1 { font-size: 32px; margin: 0;}
+#prdForm {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 3/4;
+    height: fit-content;
+    max-width: 240px;
+    gap: 10px;
+    padding: 28px 24px;
+    border-radius: 6px;
+    input {
+        max-width: 200px;
+        min-width: 150px;
+        height: 24px;
+        border: none;
+        border-radius: 6px;
+        padding-left: 6px;
+        background: var(--input);
+        color: var(--text);
+    }
+    input:focus {
+        outline: transparent;
+    }
+    button {
+        display: flex;
+        width: fit-content;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        background-color: black;
+        color: var(--text);
+    }
+}
+table {
+    min-width: 100%;
+    text-align: left;
+    font-size: small;
+
+    th {
+        border-bottom: 1px solid gray;
+        padding: 4px 2px;
+    }
+    th.ommit {
+        color: gray;
+    }
+    tbody {
+        tr:nth-child(odd) {
+            background-color: var(--bg-c);
+        }
+        tr td {
+            border-bottom: 1px solid gray;
+            padding: 4px 2px;
+        }
+        td {
+            button {
+                color: red;                
+            }
+        }
+    }
+}
+.resize-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+
+    .resize-main {
+    flex: 1;
+    overflow: auto;
+    box-sizing: border-box;
+    }
+
+    .resize-divider {
+    width: 2px;
+    cursor: col-resize;
+    background-color: var(--border)
+    }
+
+    .resize-panel-right {
+    width: 300px;
+    min-width: 100px;
+    max-width: 600px;
+    overflow: auto;
+    box-sizing: border-box;
+    }
+}
