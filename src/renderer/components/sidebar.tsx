@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Home, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Home, Settings, ChevronLeft, ChevronRight, LayoutGrid } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import Tooltip from "./tooltip";
 
 const navItems = [
   { to: '/', icon: <Home size={20} />, label: 'Home' },
+  { to: '/products', icon: <LayoutGrid size={20} />, label: 'Products' },
   { to: '/settings', icon: <Settings size={20} />, label: 'Settings' },
 ];
 
