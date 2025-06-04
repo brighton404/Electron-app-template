@@ -8,7 +8,6 @@
 - **SQLite (better-sqlite3)** as the embedded DB
 - IPC communication between frontend and main process
 <br/>
----
 
 ## Getting started
 
@@ -20,16 +19,6 @@ npm install
 Start a vite server
 ```bash
 npm run vite
-```
-
-start electron app
-```bash
-npm run electron
-```
-
-build and start app from dist folder
-```bash
-npm run start
 ```
 
 if you ran into better-sqllite3 errors when building for production, try:
@@ -45,7 +34,12 @@ npx electron-rebuild
 ## Run in Development (Electron with Vite)
 
 ```bash
-npm run electron:dev
+npm run start  # This also starts the electron app immediately after dist is generated
+```
+
+start electron app (only after generating dist)
+```bash
+npm run electron
 ```
 
 This will:
@@ -59,7 +53,6 @@ This will:
 
 ```bash
 npm run build
-npm run electron:build
 ```
 
 * Vite builds your React app to `dist/`
@@ -86,7 +79,6 @@ src/
     <li>Sidebar</li>
     <li>Tooltip</li>
 </ul>
----
 
 ## Security Notes
 
@@ -97,7 +89,4 @@ src/
 
 ## Credits
 
-Built with ❤️ by \[Julius Brighton]
 Inspired by tools like Obsidian and VS Code.
-
-```
