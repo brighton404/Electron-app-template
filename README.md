@@ -39,7 +39,7 @@ npm run start  # This also starts the electron app immediately after dist is gen
 
 start electron app (only after generating dist)
 ```bash
-npm run electron
+npm run preview
 ```
 
 This will:
