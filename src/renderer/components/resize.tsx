@@ -1,48 +1,106 @@
 import React, { useRef, useState, useEffect, ReactNode } from 'react';
-type ResizeLayoutProps = {
-  children: [ReactNode, ReactNode]; // Expect 2 children: [main, resizable panel]
-};
 
-const ResizeLayout: React.FC<ResizeLayoutProps> = ({ children }) => {
-  const panelRef = useRef<HTMLDivElement>(null);
+type Side = 'left' | 'right' | 'top' | 'bottom';
+
+interface ResizableProps {
+  children: ReactNode;
+  side?: Side;
+  minSize?: number;
+  maxSize?: number;
+}
+
+const Resizable: React.FC<ResizableProps> = ({
+  children,
+  side = 'right',
+  minSize = 150,
+  maxSize = 600,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
+  const [startPos, setStartPos] = useState<number>(0);
+  const [startSize, setStartSize] = useState<number>(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isResizing || !panelRef.current) return;
+      if (!isResizing || !containerRef.current) return;
 
-      const totalWidth = window.innerWidth;
-      const newWidth = totalWidth - e.clientX;
+      const delta = side === 'left' || side === 'right'
+        ? e.clientX - startPos
+        : e.clientY - startPos;
 
-      const minWidth = 150;
-      const maxWidth = 600;
+      let newSize: number;
 
-      panelRef.current.style.width = `${Math.min(Math.max(newWidth, minWidth), maxWidth)}px`;
+      if (side === 'right' || side === 'bottom') {
+        newSize = startSize + delta;
+      } else {
+        newSize = startSize - delta;
+      }
+
+      newSize = Math.max(minSize, Math.min(maxSize, newSize));
+
+      if (side === 'left' || side === 'right') {
+        containerRef.current.style.width = `${newSize}px`;
+      } else {
+        containerRef.current.style.height = `${newSize}px`;
+      }
+
     };
 
-    const stopResizing = () => setIsResizing(false);
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', stopResizing);
+    window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', stopResizing);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isResizing]);
+  }, [isResizing, startPos, startSize, side, minSize, maxSize]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    setIsResizing(true);
+
+    setStartSize(
+      side === 'right' || side === 'left'
+        ? containerRef.current.offsetWidth
+        : containerRef.current.offsetHeight
+    );
+
+    setStartPos(
+      side === 'right' || side === 'left'
+        ? e.clientX
+        : e.clientY
+    );
+  };
+
+  const getHandleStyle = (): React.CSSProperties => {
+    const common: React.CSSProperties = {
+      position: 'absolute',
+      background: '#2b2b2b',
+      zIndex: 10,
+    };
+
+    switch (side) {
+      case 'right':
+        return { ...common, top: 0, right: 0, width: 2, height: '100%', cursor: 'col-resize' };
+      case 'left':
+        return { ...common, top: 0, left: 0, width: 2, height: '100%', cursor: 'col-resize' };
+      case 'top':
+        return { ...common, top: 0, left: 0, height: 5, width: '100%', cursor: 'row-resize' };
+      case 'bottom':
+        return { ...common, bottom: 0, left: 0, height: 5, width: '100%', cursor: 'row-resize' };
+    }
+  };
 
   return (
-    <div className="resize-container">
-      <div className="resize-main">{children[0]}</div>
-      <div
-        className="resize-divider"
-        onMouseDown={() => setIsResizing(true)}
-      />
-      <div className="resize-panel-right" ref={panelRef}>
-        {children[1]}
-      </div>
+    <div ref={containerRef} className="resizable-container" style={{ position: 'relative' }}>
+      {children}
+      <div className="dragHandle" style={getHandleStyle()} onMouseDown={handleMouseDown} />
     </div>
   );
 };
 
-export default ResizeLayout;
+export default Resizable;
