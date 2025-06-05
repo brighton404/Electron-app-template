@@ -1,50 +1,76 @@
 * {
     font-family: "Roboto", sans-serif;
 }
-main {
+div#root {
+    flex: 1 0 0;
+    align-self: stretch;
     display: flex;
-}
-#root {
-    display: inline;
+    flex-direction: column;
+    max-height: 100vh;
     --background: #1e1e1e;
     --bg-c: #292929;
     --border:#2b2b2b;
     --text: white;
     --text-dark: black;
     --text-alt: #2b2b2b;
+    --text-desc: #707070;
     --input: #535353;;
+}
+main {
+    display: flex;
+    flex: 1 0 0;
+    align-self: stretch;
+    max-height: 100vh;
 }
 h1 { font-size: 32px; margin: 0;}
 main > .page {
+    display: grid;
+    grid-auto-columns: 1fr;
+    justify-items: center;
     flex: 1 0 0;
     align-self: stretch;
     color: white;
     background: var(--background);
+    overflow-y: scroll;
+    .extend {
+        flex: 1 0 0;
+        display: flex;
+        justify-content: center;
+    }
 }
-.page {
+.space {
+    width: 100px;
+    height: 10vh;
+} 
+.page .content {
     display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    flex: 1 0 0; /* Leave this here */
 }
 .page.product {
+    display: flex;
     .List {
         display: flex;
         flex-direction: column;
-        flex: 1 0 0;
         padding:10px 20px ;
+        padding-right: clamp(1rem, 2.5vw, 2rem);
+        flex: 1 0 0;
     }
 }
+.page.home {
+    padding-top: 2rem;
+}
 header {
-    position: absolute;
-    right: 0;
-    top: 0;
+    width: 100%;
     height: fit-content;
-    width: fit-content;
     background: var(--border);
     color: var(--text);
     display: flex;
     align-items: center;
     justify-content: right;
     padding: 0;
-    gap: 0;
+    gap: 10px;
 }
 aside#app-aside {
     border-right:2px solid var(--border);
@@ -128,29 +154,40 @@ table {
         }
     }
 }
-.resize-container {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-
-    .resize-main {
-    flex: 1;
-    overflow: auto;
+.resizable-container {
+  overflow: auto;
+  box-sizing: border-box;
+}
+.dragHandle:active {
     box-sizing: border-box;
-    }
+    border:1px solid rgb(74, 222, 128);
+}
 
-    .resize-divider {
-    width: 2px;
-    cursor: col-resize;
-    background-color: var(--border)
-    }
+/* Custom Scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+::-webkit-scrollbar:hover {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  
+}
 
-    .resize-panel-right {
-    width: 300px;
-    min-width: 100px;
-    max-width: 600px;
-    overflow: auto;
-    box-sizing: border-box;
-    }
+::-webkit-scrollbar-thumb {
+  background: rgb(74, 222, 128); 
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(45, 156, 86); 
+}
+/* end of scroll bar */
+article.dummy {
+    text-wrap: wrap;
+    padding-top: 20px;
+    color: var(--text-desc);
+    font-size: large;
 }
