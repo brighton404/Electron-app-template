@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
         flexDirection: 'column'
       }}
     >
-      <div style={{ padding: '1rem', display: 'flex', justifyContent: collapsed ? 'center' : 'space-between' }}>
+      <div style={{ padding: '1rem', display: 'flex', justifyContent: collapsed ? 'center' : 'space-between', WebkitAppRegion: 'no-drag' }as any}>
         {!collapsed && <strong style={{marginLeft: '8px'}}>My App</strong>}
         <button onClick={toggle} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
           {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
