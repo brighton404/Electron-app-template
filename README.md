@@ -1,4 +1,57 @@
 # Electron Desktop App Template
+## RoadMap
+This is the final structure i will complete this template. The current state is too basic.
+<br/>
+```bash
+my-electron-app/
+│
+├── packages/
+│   ├── main/                 # Electron main process (Node.js)
+│   │   ├── src/
+│   │   │   ├── main.ts       # Entry point for Electron
+│   │   │   ├── preload.ts    # Preload script (IPC bridge)
+│   │   │   ├── plugins.ts    # Plugin loader/manager
+│   │   │   └── ipc/          # IPC handlers
+│   │   └── vite.config.ts    # Vite config for main (if bundled)
+│
+│   ├── renderer/             # Frontend app (Vite)
+│   │   ├── src/
+│   │   │   ├── App.tsx
+│   │   │   ├── main.tsx
+│   │   │   ├── components/
+│   │   │   ├── pages/
+│   │   │   └── plugins/      # Frontend plugin integration
+│   │   └── vite.config.ts
+│
+│   └── shared/               # Shared types/constants between main and renderer
+│       └── types.ts
+│
+├── plugins/                 # External plugin directory (optional, dynamic load)
+│   ├── sample-plugin/
+│   │   ├── main.js          # Plugin main logic (Node)
+│   │   └── manifest.json    # Plugin metadata
+│
+├── electron-builder.json
+├── package.json
+└── tsconfig.json
+```
+
+---
+
+### Components
+
+- Button	Consistent button styles (<Button variant="primary" />)
+- Input / TextField	Form inputs with validation
+- Modal	For plugin UIs or confirmations
+- Tooltip	For explaining actions (used by plugin icons, etc.)
+- Tabs	Used for plugin views or settings pages
+- Dropdown	Used in plugin launchers, settings
+- Switch	Toggle options in preferences
+- Toast	Global notification handler
+- Loader	Spinner/loading state
+- ErrorBoundary	To catch frontend plugin failures safely
+
+---
 
 ## 📦 Tech Stack
 
